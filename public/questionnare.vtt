@@ -1,0 +1,57 @@
+WEBVTT
+
+1
+00:00:26.000 --> 00:00:39.000 
+{
+"id": "8272bf4f920",
+"question": "How satisfied are you with the overall car service?\n",
+"answers": [{"id":"e3921305827","answer":"Satisfied"},{"id":"3058272bf4f","answer":"Dissatisfied"}]
+}
+
+2
+00:00:39.000 --> 00:00:54.000 
+{
+"id": "bac395f672f",
+"question": "What specific aspects of the car service contributed to your satisfaction?\n",
+"answers": [{"id":"eaa905a74f6","answer":"Prompt service"},{"id":"5a74f66cbac","answer":"Quality of repairs"},{"id":"66cbac395f6","answer":"Courteous staff"}]
+}
+
+3
+00:00:54.000 --> 00:01:03.000 
+{
+"id": "81cc6f213da",
+"question": "Are there any specific areas where you think the car service could be improved to enhance your satisfaction?\n",
+"answers": [{"id":"371c8bf8c04","answer":"Waiting time"},{"id":"bf8c044081c","answer":"Communication"},{"id":"44081cc6f21","answer":"Additional services"}]
+}
+
+4
+00:01:03.000 --> 00:01:05.000 
+{
+"id": "76954119b7b",
+"question": "How likely are you to recommend our car service to friends or family?",
+"answers": [{"id":"eb232b40b22","answer":"Highly likely"},{"id":"b40b22ef26a","answer":"Likely"},{"id":"2ef26a92769","answer":"Neutral"},{"id":"a9276954119","answer":"Unlikely"}]
+}
+
+5
+00:01:20.000 --> 00:01:31.000 
+{
+"id": "3d688c47f72",
+"question": "Could you please specify the main reasons for your dissatisfaction with the car service?",
+"answers": [{"id":"daaa702c300","answer":"Long waiting times"},{"id":"02c300ea3d6","answer":"Poor communication"},{"id":"0ea3d688c47","answer":"Quality of repairs"}]
+}
+
+6
+00:01:31.000 --> 00:01:46.000 
+{
+"id": "cd4774c4085",
+"question": "Did you bring your concerns to the attention of the service team, and if so, how satisfied were you with the resolution efforts?",
+"answers": [{"id":"cdd6b6e4793","answer":"Satisfied"},{"id":"6e479366cd4","answer":"Neutral"},{"id":"366cd4774c4","answer":"Dissatisfied"}]
+}
+
+7
+00:01:46.000 --> 00:01:47.000 
+{
+"id": "682929d8865",
+"question": "Considering your recent experience, how likely are you to consider using our car service in the future?",
+"answers": [{"id":"83996fcbb0c","answer":"Likely"},{"id":"fcbb0cd7682","answer":"Neutral"},{"id":"cd7682929d8","answer":"Unlikely"}]
+}

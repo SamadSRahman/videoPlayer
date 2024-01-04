@@ -8,6 +8,8 @@ const App = () => {
   const [videoData, setVideoData] = useState(null)
   const [videoPath, setVideoPath] = useState("")
   const [trackPath, setTrackPath] = useState("")
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+
   let videoPlayer;
   const {id} = useParams(); 
   const [allAnswers, setAllAnswers] = useState([]);
@@ -36,43 +38,56 @@ const App = () => {
 useEffect(()=>{
   if(videoData){
     console.log(`https://videojs.onrender.com/${videoData.video_path}`)
-    setVideoPath(`https://videojs.onrender.com/${videoData.video_path}`)
+    setVideoPath(videoData.video_path)
     setTrackPath(`https://videojs.onrender.com/${videoData.vtt_path}`)
   }
 },[videoData])
   useEffect(() => {
-    if (videoRef.current) {
-      console.log(videoData,"player loaded")
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      videoPlayer = videoRef.current;
-      let tracks = videoPlayer.textTracks;
-      let questionTrack;
-
-      for (var i = 0; i < tracks.length; i++) {
-        var track = tracks[i];
-
-        if (track.label === "questions") {
-          track.mode = "hidden";
-          // Store it for usage outside of the loop.
-          questionTrack = track;
+ 
+ 
+      if (videoRef.current) {
+        console.log(videoData,"player loaded")
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        videoPlayer = videoRef.current;
+        let tracks = videoPlayer.textTracks;
+        let questionTrack;
+  
+        for (var i = 0; i < tracks.length; i++) {
+          var track = tracks[i];
+  
+          if (track.label === "questions") {
+            // track.mode = "hidden";
+            // Store it for usage outside of the loop.
+            questionTrack = track;
+          }
         }
-      }
-      // questionTrack.onCueChange(()=>console.log("cue"))
-      questionTrack.addEventListener("cuechange", () => {
-        displayMCQOverlay(questionData[currentQuestion]);
-      });
+        //  questionTrack.onCueChange(()=>console.log("cue"))
+        questionTrack.addEventListener("cuechange", (event) => {
+          // console.log(event.target.activeCues[0].text)
+         if(event.target.activeCues[0].text!==undefined){
+          const cue = event.target.activeCues[0].text;
+         console.log(cue)
+         const cueData = JSON.parse(cue)
+         console.log(cueData)
+          displayMCQOverlay(cueData);
+         }
+        });
+        
+      
+      
     }
-    //
   }, [videoData]);
   const displayMCQOverlay = (data) => {
-    if (questionData.length > 0) {
-      setQuestion(data.question.text);
+    console.log(data)
+    
+      setQuestion(data.question);
       videoPlayer.pause();
       console.log(videoPlayer);
       setIsDisplay(false);
-      setAllAnswers([...data.incorrectAnswers, data.correctAnswer]);
-      shuffleArray(allAnswers);
-    }
+    const arrayAns = data.answers.map(ele=>ele.answer)
+    console.log(arrayAns)
+    setAllAnswers(arrayAns)  
+     
   };
 
   function handleDone() {
@@ -82,12 +97,7 @@ useEffect(()=>{
     setIsDisplay(true);
     handlePlay();
   }
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
+
   const handlePlay = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
@@ -97,6 +107,26 @@ useEffect(()=>{
       }
     }
   };
+  function handleAnswerSelection(answer) {
+    setSelectedAnswer(answer);
+  
+    if (answer === "Satisfied") {
+      // Show specific parts of the video for "Satisfied" answer
+      videoRef.current.currentTime = 26; // Start from 00:26
+      videoRef.current.addEventListener('timeupdate', function handler() {
+        if (videoRef.current.currentTime >= 64) {
+          // After 01:04, jump to 01:47
+          videoRef.current.currentTime = 107;
+          videoRef.current.removeEventListener('timeupdate', handler); // Remove the event listener
+        }
+      });
+    } else if (answer === "Dissatisfied") {
+      // Show a different part of the video for "Dissatisfied" answer
+      videoRef.current.currentTime = 66; // Start from 01:05
+    }
+  }
+  
+
   return (
     <div className="App">
       <div style={isDisplay ? {} : { display: "none" }}>
@@ -109,9 +139,9 @@ useEffect(()=>{
             width="430"
             height="200"
           >
-            <source src={videoPath} type="video/mp4" />
+            <source src={`https://videojs-jfzo.onrender.com/video-1704349479931.mp4`} type="video/mp4" />
             <track
-              src={trackPath}
+              src="/questionnare.vtt"
               label="questions"
               kind="metadata"
               default={true}
@@ -119,11 +149,19 @@ useEffect(()=>{
           </video>
         </div>
       </div>
-      <div className="mcqSection" style={!isDisplay ? {} : { display: "none" }}>
+      <div className="mcqSection" style={!isDisplay ? 
+        {
+          width:"430px",
+          height:"200",
+          border:"1px solid",
+          backgroundColor:'skyblue'
+        }
+         : { display: "none" }}>
         <h3>{question}</h3>
         {allAnswers.map((answer) => (
           <div key={answer}>
-            <input type="radio" name="answer" value={answer} />
+            <input type="radio" name="answer" value={answer}
+              onChange={() => handleAnswerSelection(answer)}/>
             <label>{answer}</label>
             <br/>
           </div>
