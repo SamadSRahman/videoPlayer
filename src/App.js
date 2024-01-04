@@ -114,7 +114,7 @@ useEffect(()=>{
       // Show specific parts of the video for "Satisfied" answer
       videoRef.current.currentTime = 26; // Start from 00:26
       videoRef.current.addEventListener('timeupdate', function handler() {
-        if (videoRef.current.currentTime >= 64) {
+        if (videoRef.current.currentTime >= 63) {
           // After 01:04, jump to 01:47
           videoRef.current.currentTime = 107;
           videoRef.current.removeEventListener('timeupdate', handler); // Remove the event listener
