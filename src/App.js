@@ -35,13 +35,14 @@ const App = () => {
   }, []);
 useEffect(()=>{
   if(videoData){
-    console.log(videoData.video_path)
-    setVideoPath(videoData.video_path)
-    setTrackPath(videoData.vtt_path)
+    console.log(`https://videojs.onrender.com/${videoData.video_path}`)
+    setVideoPath(`https://videojs.onrender.com/${videoData.video_path}`)
+    setTrackPath(`https://videojs.onrender.com/${videoData.vtt_path}`)
   }
 },[videoData])
   useEffect(() => {
     if (videoRef.current) {
+      console.log(videoData,"player loaded")
       // eslint-disable-next-line react-hooks/exhaustive-deps
       videoPlayer = videoRef.current;
       let tracks = videoPlayer.textTracks;
@@ -62,7 +63,7 @@ useEffect(()=>{
       });
     }
     //
-  }, [questionData, currentQuestion]);
+  }, [videoData]);
   const displayMCQOverlay = (data) => {
     if (questionData.length > 0) {
       setQuestion(data.question.text);
@@ -101,6 +102,7 @@ useEffect(()=>{
       <div style={isDisplay ? {} : { display: "none" }}>
         <div data-vjs-player>
           <video
+          // crossOrigin="anonymous"
             ref={videoRef}
             className="video-js vjs-big-play-centered"
             controls
