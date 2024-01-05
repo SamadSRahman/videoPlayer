@@ -4,6 +4,8 @@ import "./App.css";
 // import video from "./videos/sampleVideo.mp4";
 import gif from "./videos/gif.mp4";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+
 
 const App = () => {
   const videoRef = useRef(null);
@@ -15,10 +17,14 @@ const App = () => {
   const [skip, setSkip] = useState(false);
   const [multilple, setMultiple] = useState(false);
   const [flag, setFlag] = useState(false);
+  const [dataPosted, setDataPosted] = useState(false);
   const [questionsWithAnswers, setQuestionsWithAnswers] = useState({});
 
   let videoPlayer;
   const { id } = useParams();
+  const { user } = useParams();
+  console.log(user)
+
   const [allAnswers, setAllAnswers] = useState([
     "answer1",
     "answer2",
@@ -58,7 +64,7 @@ const App = () => {
     }
   }, [videoData]);
   useEffect(() => {
-    if (videoData) {
+    
       if (videoRef.current) {
         console.log(videoData, "player loaded");
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,7 +99,7 @@ const App = () => {
           }
         });
       }
-    }
+    
   }, [videoData]);
   const displayMCQOverlay = (data) => {
     console.log(data);
@@ -135,7 +141,7 @@ const App = () => {
         setTimeout(() => handlePlay(), 100); // Delay handlePlay() by 100 milliseconds
       }
     }
-
+ 
     const updatedQuestion = {
       question,
       selectedAns: newSelectedAnswer,
@@ -151,7 +157,42 @@ const App = () => {
   
   useEffect(() => {
     console.log(answeredQuestions);
-  }, [answeredQuestions]);
+  
+    function handleTimeUpdate() {
+      if (videoRef.current.currentTime >= 90 && !dataPosted) {
+        const postData = async (data) => {
+          try {
+            const response = await axios.post("https://videojs-jfzo.onrender.com/api/v2/queAnsCreate", data);
+            console.log('Data successfully posted:', response.data);
+            return response.data; // Return response if needed
+          } catch (error) {
+            console.error('Error posting data:', error);
+            throw new Error(error);
+          }
+        };
+        
+        // Example object to post
+        const myObject = {
+          userId: id,
+          data: answeredQuestions,
+        };
+        postData(myObject);
+
+        setDataPosted(true);
+      }
+    }
+  
+    const videoElement = videoRef.current;
+  
+    videoElement.addEventListener("timeupdate", handleTimeUpdate);
+  
+    // Cleanup function to remove the event listener
+    return () => {
+      videoElement.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+  }, [answeredQuestions, dataPosted]);
+  
+  
   const handlePlay = () => {
     console.log(videoRef.current)
     if (videoRef.current) {
