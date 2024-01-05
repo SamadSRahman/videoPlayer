@@ -138,6 +138,7 @@ const App = () => {
       } else if (newSelectedAnswer[0] === "Dissatisfied") {
         videoRef.current.currentTime = 54; // Start from 01:05
         setFlag(true);
+        handlePlay()
         setTimeout(() => handlePlay(), 100); // Delay handlePlay() by 100 milliseconds
       }
     }

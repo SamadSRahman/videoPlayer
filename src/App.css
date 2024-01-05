@@ -13,7 +13,7 @@
   /* Other styles */
   /* ... */
   border-radius: 9px;
-  width:80% ;
+  width:100% ;
   
   border: 1px solid;
   display: flex;
@@ -89,7 +89,7 @@ width: 100%;
 padding: 10px;
 }
 #videoPlayer{
-width:80%
+width:100%
 }
 
 @media (max-width: 600px) {
