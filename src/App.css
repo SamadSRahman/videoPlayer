@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
-}
+.mcqSection{
+  /* For WebKit (Safari, Chrome) */
+ background:  linear-gradient(to right,#d8d3f2, #f2c8c8) ; 
+  /* For Mozilla (Firefox) */
+  background: -moz-linear-gradient(to right, #d8d3f2, #f2c8c8);
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  /* For Internet Explorer 10+ */
+  background: linear-gradient(to right, #d8d3f2, #f2c8c8);
+  
+  /* Optional: Adding additional fallback color */
+  background-color: #d3a0a0;
+  
+  /* Other styles */
+  /* ... */
+  border-radius: 9px;
+  width:80% ;
+  
+  border: 1px solid;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+
+}
+.doneBtn{
+  background-color: rgb(216, 58, 58);
+  padding:8px;
+  cursor: pointer;
+  border-radius: 7px;
+  border: none;
   color: white;
 }
+.skipBtn{
+  background-color: white;
+  padding:8px;
+  cursor: pointer;
+  border-radius: 7px;
+  border: none;
 
-.App-link {
-  color: #61dafb;
+}
+.questionHead{
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+}
+.questionText{
+background-color: #9883fe;
+min-height: 2rem;
+padding-top: 7px;
+width: 90%;
+
+color:white;
+border-radius: 8px;
+text-align: center;
+}
+.answerSection{
+display: flex;
+gap: 5px;
+flex-wrap: wrap;
+justify-content: center;
+margin: 10px 0px
+}
+.answerSection label{
+min-width: 30%;
+display: inline-block;
+padding: 7px 7px;
+border-radius: 7px;
+border: 2px solid white;
+font-weight: bold;
+word-spacing: 1.5px;
+cursor: pointer;
+}
+.answerSection button:hover{
+border: 2px solid #866ff8;
+}
+.answerSection button:active{
+background-color: #cbc1ff;
+color: #6d51f5;
+}
+.submitSection{
+display: flex;
+justify-content: right;
+padding-right: 20px;
+gap: 10px;
+margin-bottom: 10px;
+width: 100%;
+}
+.App{
+padding: 10px;
+}
+#videoPlayer{
+width:80%
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@media (max-width: 600px) {
+#videoPlayer{
+  width:100%
+}
+.mcqSection{
+width:100%
+}
+.gifPlayer{
+width: 20%;
+}
+}
+.gifPlayer{
+width: 20%;
+border-radius: 5px;
+border: 1px solid ;
+}
+.header{
+/* border: 1px solid; */
+display: flex;
+justify-content: space-between;
+padding: 10px;
+align-items: center;
 }

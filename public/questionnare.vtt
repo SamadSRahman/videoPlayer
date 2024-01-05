@@ -1,0 +1,71 @@
+WEBVTT
+
+1
+00:00:23.800 --> 00:00:34.100 
+{
+"id": "8272bf4f920",
+"question": "How satisfied are you with the overall car service?\n",
+"answers": [{"id":"e3921305827","answer":"Satisfied"},{"id":"3058272bf4f","answer":"Dissatisfied"}],
+"multiple": "false",
+"skip":"false"
+}
+
+2
+00:00:34.100 --> 00:00:44.000 
+{
+"id": "bac395f672f",
+"question": "What specific aspects of the car service contributed to your satisfaction?\n",
+"answers": [{"id":"eaa905a74f6","answer":"Prompt service"},{"id":"5a74f66cbac","answer":"Quality of repairs"},{"id":"66cbac395f6","answer":"Courteous staff"}],
+"multiple": "true",
+"skip":"true"
+}
+
+3
+00:00:44.000 --> 00:00:52.000 
+{
+"id": "81cc6f213da",
+"question": "Are there any specific areas where you think the car service could be improved to enhance your satisfaction?\n",
+"answers": [{"id":"371c8bf8c04","answer":"Waiting time"},{"id":"bf8c044081c","answer":"Communication"},{"id":"44081cc6f21","answer":"Additional services"}],
+"multiple": "true",
+"skip":"true"
+}
+
+4
+00:00:52.000 --> 00:00:53.300 
+{
+"id": "76954119b7b",
+"question": "How likely are you to recommend our car service to friends or family?",
+"answers": [{"id":"eb232b40b22","answer":"Highly likely"},{"id":"b40b22ef26a","answer":"Likely"},{"id":"2ef26a92769","answer":"Neutral"},{"id":"a9276954119","answer":"Unlikely"},{"id":"f0bb0c47682","answer":"Highly Unlikely"}],
+"multiple": "false",
+"skip":"true"
+}
+
+5
+00:01:06.300 --> 00:01:15.700 
+{
+"id": "3d688c47f72",
+"question": "Could you please specify the main reasons for your dissatisfaction with the car service?",
+"answers": [{"id":"daaa702c300","answer":"Long waiting times"},{"id":"02c300ea3d6","answer":"Poor communication"},{"id":"0ea3d688c47","answer":"Quality of repairs"}],
+"multiple": "true",
+"skip":"true"
+}
+
+6
+00:01:15.700 --> 00:01:29.300 
+{
+"id": "cd4774c4085",
+"question": "Did you bring your concerns to the attention of the service team, and if so, how satisfied were you with the resolution efforts?",
+"answers": [{"id":"cdd6b6e4793","answer":"Satisfied"},{"id":"6e479366cd4","answer":"Neutral"},{"id":"366cd4774c4","answer":"Dissatisfied"}],
+"multiple": "false",
+"skip":"true"
+}
+
+7
+00:01:29.300 --> 00:01:46.050 
+{
+"id": "682929d8865",
+"question": "Considering your recent experience, how likely are you to consider using our car service in the future?",
+"answers": [{"id":"83996fcbb0c","answer":"Likely"},{"id":"fcbb0cd7682","answer":"Neutral"},{"id":"cd7682929d8","answer":"Unlikely"}],
+"multiple": "false",
+"skip":"true"
+}
