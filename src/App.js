@@ -38,32 +38,49 @@ const App = () => {
 
   let [currentQuestion, setCurrentQuestion] = useState(0);
   console.log(id);
+
+  const fetchVideoDataById = async(id)=>{
+    const data = await fetch(`https://videojs-jfzo.onrender.com/api/v1/getVideoById/${id}`)
+    const json = await data.json()
+    return json.data
+  }
+
   useEffect(() => {
-    //fetching data for questions
-    fetch(`https://videojs-jfzo.onrender.com/api/v1/getVideoById/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+    fetchVideoDataById(id)
       .then((data) => {
-        console.log(data.data);
-        setVideoData(data.data);
+        setVideoData(data);
       })
-      .catch((error) => {
-        console.error("There was a problem fetching the data:", error);
+      .catch((err) => {
+        console.error("There was a problem fetching the data:", err);
       });
-  }, [id]);
+    // //fetching data for questions
+    // fetch(`https://videojs-jfzo.onrender.com/api/v1/getVideoById/${id}`)
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error("Network response was not ok");
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     console.log("data is" , data.data);
+    //     setVideoData(data.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("There was a problem fetching the data:", error);
+    //   });
+  }, []);
 
   useEffect(() => {
     if (videoData) {
       console.log(videoData.video_path);
       console.log(`https://videojs-jfzo.onrender.com/${videoData.video_path}`);
       setVideoPath(`https://videojs-jfzo.onrender.com/${videoData.video_path}`);
-      setTrackPath(`https://videojs.onrender.com/${videoData.vtt_path}`);
+      setTrackPath(`https://videojs-jfzo.onrender.com/${videoData.vtt_path}`);
     }
   }, [videoData]);
+
+  console.log("videoPath is" , videoPath)
+  console.log("trackPath is" , trackPath)
 
 
   useEffect(() => {
@@ -255,7 +272,7 @@ const App = () => {
             controls
             id="videoPlayer"
           >
-         { videoData &&  <source src={`https://videojs-jfzo.onrender.com/${videoData.video_path}`} type="video/mp4" />
+         { videoPath &&  <source src={videoPath} type="video/mp4" />
               }
             <track
               src="/questionnare.vtt"
