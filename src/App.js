@@ -139,7 +139,7 @@ useEffect(()=>{
             width="430"
             height="200"
           >
-            <source src={`https://videojs-jfzo.onrender.com/video-1704349479931.mp4`} type="video/mp4" />
+            <source src={`https://videojs-jfzo.onrender.com/${videoPath}`} type="video/mp4" />
             <track
               src="/questionnare.vtt"
               label="questions"
