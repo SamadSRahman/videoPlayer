@@ -42,7 +42,7 @@ const App = () => {
   const fetchVideoDataById = async(id)=>{
     const data = await fetch(`https://videojs-jfzo.onrender.com/api/v1/getVideoById/${id}`)
     const json = await data.json()
-    return json.data
+    return json.data;
   }
 
   useEffect(() => {
