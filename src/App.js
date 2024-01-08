@@ -54,7 +54,8 @@ const App = () => {
       .catch((error) => {
         console.error("There was a problem fetching the data:", error);
       });
-  }, []);
+  }, [id]);
+
   useEffect(() => {
     if (videoData) {
       console.log(videoData.video_path);
@@ -63,6 +64,8 @@ const App = () => {
       setTrackPath(`https://videojs.onrender.com/${videoData.vtt_path}`);
     }
   }, [videoData]);
+
+
   useEffect(() => {
     
       if (videoRef.current) {
@@ -252,7 +255,8 @@ const App = () => {
             controls
             id="videoPlayer"
           >
-            <source src={videoPath} type="video/mp4" />
+         { videoData &&  <source src={`https://videojs-jfzo.onrender.com/${videoData.video_path}`} type="video/mp4" />
+              }
             <track
               src="/questionnare.vtt"
               label="questions"
