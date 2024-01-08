@@ -59,7 +59,7 @@ const App = () => {
     if (videoData) {
       console.log(videoData.video_path);
       console.log(`https://videojs-jfzo.onrender.com/${videoData.video_path}`);
-      setVideoPath("https://videojs-jfzo.onrender.com/video-1704359286477.mp4");
+      setVideoPath(`https://videojs-jfzo.onrender.com/${videoData.video_path}`);
       setTrackPath(`https://videojs.onrender.com/${videoData.vtt_path}`);
     }
   }, [videoData]);
@@ -252,7 +252,7 @@ const App = () => {
             controls
             id="videoPlayer"
           >
-            <source src="https://videojs-jfzo.onrender.com/video-1704695688604.mp4" type="video/mp4" />
+            <source src={videoPath} type="video/mp4" />
             <track
               src="/questionnare.vtt"
               label="questions"
