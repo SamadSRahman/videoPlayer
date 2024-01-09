@@ -74,7 +74,7 @@ const App = () => {
     if (videoData) {
       console.log(videoData.video_path);
       console.log(`https://videojs-jfzo.onrender.com/${videoData.video_path}`);
-      setVideoPath(`https://videojs-jfzo.onrender.com/${videoData.video_path}`);
+      setVideoPath(`${videoData.video_path}`);
       setTrackPath(`https://videojs-jfzo.onrender.com/${videoData.vtt_path}`);
     }
   }, [videoData]);
