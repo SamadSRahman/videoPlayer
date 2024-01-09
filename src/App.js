@@ -68,7 +68,7 @@ const App = () => {
     //   .catch((error) => {
     //     console.error("There was a problem fetching the data:", error);
     //   });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (videoData) {
