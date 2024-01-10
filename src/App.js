@@ -35,6 +35,7 @@ const App = () => {
   const [question, setQuestion] = useState("");
   const [questionData, setQuestionData] = useState([]);
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
+  const [satisfied , setSatisfied] = useState("")
 
   let [currentQuestion, setCurrentQuestion] = useState(0);
   console.log(id);
@@ -86,14 +87,18 @@ const App = () => {
   useEffect(() => {
     
       if (videoRef.current) {
+        // console.log("videoRefCurrent" , videoRef)
         console.log(videoData, "player loaded");
         // eslint-disable-next-line react-hooks/exhaustive-deps
         videoPlayer = videoRef.current;
         let tracks = videoPlayer.textTracks;
+        // console.log("Tracks" , tracks)
         let questionTrack;
 
         for (var i = 0; i < tracks.length; i++) {
           var track = tracks[i];
+
+          console.log("rtackQuestion" , track)
 
           if (track.label === "questions") {
             // track.mode = "hidden";
@@ -101,12 +106,13 @@ const App = () => {
             questionTrack = track;
           }
         }
+        console.log("questionTrack" , questionTrack)
         //  questionTrack.onCueChange(()=>console.log("cue"))
         questionTrack.addEventListener("cuechange", (event) => {
           // console.log(event.target.activeCues[0].text)
-          if (event.target.activeCues[0].text !== undefined) {
+          if (event.target?.activeCues[0]?.text !== undefined) {
             const cue = event.target.activeCues[0].text;
-            console.log(cue);
+            console.log("cue" , cue);
             const cueData = JSON.parse(cue);
             console.log(cueData);
             videoPlayer.addEventListener("fullscreenchange", () => {
@@ -120,18 +126,35 @@ const App = () => {
         });
       }
     
-  }, [videoData]);
+  }, [videoData , satisfied]);
   const displayMCQOverlay = (data) => {
-    console.log(data);
-    setQuestion(data.question);
+    console.log("siaplayMcq" , data);
+    let arrayAns;
+    console.log("satisfied" , satisfied)
+
+    if(data.name === "common_question"){
+      setQuestion(data.question);
+      arrayAns = data.answers.map((ele) => ele.answer);
+    }
+    else if(data.name === "follow_up"){
+      if(satisfied === "Satisfied"){
+        setQuestion(data.satisfied.question)
+        arrayAns = data.satisfied.answers.map((ele) => ele.answer);
+      }
+      else{
+        setQuestion(data.dissatisfied.question)
+        arrayAns = data.dissatisfied.answers.map((ele) => ele.answer);
+      }
+    }
+    
+    setAllAnswers(arrayAns);
     setSkip(data.skip);
     setMultiple(data.multiple);
     videoPlayer.pause();
     console.log(videoPlayer);
     setIsDisplay(false);
-    const arrayAns = data.answers.map((ele) => ele.answer);
-    console.log(arrayAns);
-    setAllAnswers(arrayAns);
+    
+    
   };
   console.log(selectedAnswers);
 
@@ -142,21 +165,28 @@ const App = () => {
     }
   
     let newSelectedAnswer = [...selectedAnswer];
+    console.log("newSelectedAnswer" , newSelectedAnswer)
     if (!flag) {
       if (newSelectedAnswer[0] === "Satisfied") {
-        videoRef.current.currentTime = 23.9; // Start from 00:26
+        // videoRef.current.currentTime = 23.9; // Start from 00:26
+        console.log("newSelected ans" , newSelectedAnswer[0] )
+        setSatisfied(newSelectedAnswer[0])
+        console.log(satisfied)
         setTimeout(() => handlePlay(), 100)
-        videoRef.current.addEventListener("timeupdate", function handler() {
-          if (videoRef.current.currentTime >= 52) {
-            videoRef.current.currentTime = 89.4;
-            videoRef.current.removeEventListener("timeupdate", handler);
-          }
-          setFlag(true);
-      
-        });
+        // videoRef.current.addEventListener("timeupdate", function handler() {
+        //   if (videoRef.current.currentTime >= 52) {
+        //     console.log("videoRef.current.currentTime" , videoRef.current.currentTime)
+        //     videoRef.current.currentTime = 89.4;
+        //     videoRef.current.removeEventListener("timeupdate", handler);
+        //   }
+        //   setFlag(true);
+        // });
+        setFlag(true)
+        console.log("Ho gya sb")
         videoRef.current.play();
       } else if (newSelectedAnswer[0] === "Dissatisfied") {
-        videoRef.current.currentTime = 54; // Start from 01:05
+        // videoRef.current.currentTime = 54; // Start from 01:05
+        setSatisfied(newSelectedAnswer[0])
         setFlag(true);
         handlePlay()
         setTimeout(() => handlePlay(), 100); // Delay handlePlay() by 100 milliseconds
@@ -194,7 +224,7 @@ const App = () => {
         
         // Example object to post
         const myObject = {
-          userId: id,
+          userId: "15",
           data: answeredQuestions,
         };
         postData(myObject);

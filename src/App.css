@@ -2,7 +2,6 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-
 }
 
 .mcqSection{
@@ -111,8 +110,7 @@
             width:100vw !important;
             height:100vh !important;
             background: linear-gradient(104deg, #E6DBFF 0%, #FFD4C8 94.59%);
-   }
-
+      }
 
       @media (max-width: 600px) {
               #videoPlayer{
