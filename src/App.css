@@ -2,86 +2,104 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    background: linear-gradient(104deg, #E6DBFF 0%, #FFD4C8 94.59%);  
 }
 
-.mcqSection{
-      /* For WebKit (Safari, Chrome) */
-    background:  linear-gradient(to right,#d8d3f2, #f2c8c8) ; 
-      /* For Mozilla (Firefox) */
-      background: -moz-linear-gradient(to right, #d8d3f2, #f2c8c8);
+.App{
+      padding:0;
+  }
 
-      /* For Internet Explorer 10+ */
-      background: linear-gradient(to right, #d8d3f2, #f2c8c8);
-      
-      /* Optional: Adding additional fallback color */
-      background-color: #d3a0a0;
-      
+      video{
+        width: 100%;
+        height: 100%;
+        object-position: center;
+      }
+
+.mcqSection{
+      z-index: 999;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.48) !important;
+      box-shadow: 32px 32px 119px 0px rgba(72, 72, 72, 0.514);
+      padding: 15px;
       /* Other styles */
       /* ... */
-      border-radius: 9px;
-      width:60%;
+      width:56%;
       height:auto;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      border: 1px solid;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
 }
 
+.header{
+   background: none;
+}
+
+
       .doneBtn {
-        background-color: rgb(216, 58, 58);
-        padding:8px;
+        background: #FE6316 !important; 
+        padding:10px 14px;
         cursor: pointer;
-        border-radius: 7px;
+        border-radius: 6px;
         border: none;
         color: white;
+        font-weight: 700;
+        font-size: 14px;
       }
 
       .skipBtn {
-        background-color: white;
-        padding:8px;
+        background: #dfdfdf !important;
+        padding:10px 14px;
         cursor: pointer;
-        border-radius: 7px;
+        border-radius: 6px;
         border: none;
+        font-weight: 700;
+        font-size: 14px;
       }
 
       .questionHead {
           text-align: center;
           font-weight: bold;
-          font-size: large;
+          font-size: 1.6rem;
+          background: none;
     }
 
       .questionText {
-          background-color: #9883fe;
+          background: #A480FF; 
           min-height: 2rem;
-          padding-top: 7px;
-          width: 90%;
+          padding: 10px;
+          width: 85%;
           color:white;
           border-radius: 8px;
           text-align: center;
+          font-weight: bold;
+          font-size: 16px;
     }
 
     .answerSection{
           display: flex;
-          gap: 5px;
+          gap: 10px;
           flex-wrap: wrap;
           justify-content: center;
           margin: 10px 0px;
+          background: none ;
     }
 
     .answerSection label{
-          min-width: 30%;
+          min-width: 40%;
           display: inline-block;
           padding: 7px 7px;
-          border-radius: 7px;
-          border: 2px solid white;
+          border-radius: 6px;
+          /* border: 2px solid white; */
           font-weight: bold;
           word-spacing: 1.5px;
           cursor: pointer;
+          background:none;
+          background-color: none;
     }
 
       .answerSection button:hover{
@@ -96,20 +114,18 @@
       .submitSection{
           display: flex;
           justify-content: right;
-          padding-right: 20px;
+          padding-right: 55px;
           gap: 10px;
           margin-bottom: 10px;
           width: 100%;
+          background: none;
       }
 
-      .App{
-      padding: 0px;
-      }
 
       #videoPlayer{
             width:100vw !important;
             height:100vh !important;
-            background: linear-gradient(104deg, #E6DBFF 0%, #FFD4C8 94.59%);
+            
       }
 
       @media (max-width: 600px) {
@@ -125,9 +141,10 @@
       }
 
         .gifPlayer{
-            width: 30%;
+            width: 20%;
             border-radius: 5px;
             border: 1px solid ;
+            margin-right:45px;
         }
 
         .header{

@@ -294,7 +294,8 @@ const App = () => {
   }, [skip]);
   return (
     <div className="App">
-      <div style={isDisplay ? {} : { display: "none" }}>
+
+      <div style={isDisplay ? {} : { display: "none" } }>
         <div data-vjs-player>
           <video
             ref={videoRef}
@@ -324,7 +325,7 @@ const App = () => {
         <p className="questionText">{question}</p>
         <div className="answerSection">
           {allAnswers.map((answer) => (
-            <div key={answer}>
+            <div key={answer}  style={{background:'none'}}>
               {multilple === "true" ? (
                 <label>
                   <input
@@ -332,7 +333,7 @@ const App = () => {
                     checked={selectedAnswer.includes(answer)}
                     onChange={() => handleAnswerSelection(answer)}
                   />
-                  {answer}
+                 {"   "} {answer}
                 </label>
               ) : (
                 <label>
@@ -342,7 +343,7 @@ const App = () => {
                     onChange={() => handleAnswerSelection(answer)}
                     name="answer"
                   />
-                  {answer}
+                 {"   "} {answer}
                 </label>
               )}
               <br />
