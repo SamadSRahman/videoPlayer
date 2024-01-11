@@ -35,7 +35,6 @@ const App = () => {
   const [question, setQuestion] = useState("");
   const [questionData, setQuestionData] = useState([]);
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
-  const [satisfied , setSatisfied] = useState("")
 
   let [currentQuestion, setCurrentQuestion] = useState(0);
   console.log(id);
@@ -69,7 +68,7 @@ const App = () => {
     //   .catch((error) => {
     //     console.error("There was a problem fetching the data:", error);
     //   });
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     if (videoData) {
@@ -87,18 +86,14 @@ const App = () => {
   useEffect(() => {
     
       if (videoRef.current) {
-        // console.log("videoRefCurrent" , videoRef)
         console.log(videoData, "player loaded");
         // eslint-disable-next-line react-hooks/exhaustive-deps
         videoPlayer = videoRef.current;
         let tracks = videoPlayer.textTracks;
-        // console.log("Tracks" , tracks)
         let questionTrack;
 
         for (var i = 0; i < tracks.length; i++) {
           var track = tracks[i];
-
-          console.log("rtackQuestion" , track)
 
           if (track.label === "questions") {
             // track.mode = "hidden";
@@ -106,13 +101,12 @@ const App = () => {
             questionTrack = track;
           }
         }
-        console.log("questionTrack" , questionTrack)
         //  questionTrack.onCueChange(()=>console.log("cue"))
         questionTrack.addEventListener("cuechange", (event) => {
           // console.log(event.target.activeCues[0].text)
-          if (event.target?.activeCues[0]?.text !== undefined) {
+          if (event.target.activeCues[0].text !== undefined) {
             const cue = event.target.activeCues[0].text;
-            console.log("cue" , cue);
+            console.log(cue);
             const cueData = JSON.parse(cue);
             console.log(cueData);
             videoPlayer.addEventListener("fullscreenchange", () => {
@@ -126,35 +120,18 @@ const App = () => {
         });
       }
     
-  }, [videoData , satisfied]);
+  }, [videoData]);
   const displayMCQOverlay = (data) => {
-    console.log("siaplayMcq" , data);
-    let arrayAns;
-    console.log("satisfied" , satisfied)
-
-    if(data.name === "common_question"){
-      setQuestion(data.question);
-      arrayAns = data.answers.map((ele) => ele.answer);
-    }
-    else if(data.name === "follow_up"){
-      if(satisfied === "Satisfied"){
-        setQuestion(data.satisfied.question)
-        arrayAns = data.satisfied.answers.map((ele) => ele.answer);
-      }
-      else{
-        setQuestion(data.dissatisfied.question)
-        arrayAns = data.dissatisfied.answers.map((ele) => ele.answer);
-      }
-    }
-    
-    setAllAnswers(arrayAns);
+    console.log(data);
+    setQuestion(data.question);
     setSkip(data.skip);
     setMultiple(data.multiple);
     videoPlayer.pause();
     console.log(videoPlayer);
     setIsDisplay(false);
-    
-    
+    const arrayAns = data.answers.map((ele) => ele.answer);
+    console.log(arrayAns);
+    setAllAnswers(arrayAns);
   };
   console.log(selectedAnswers);
 
@@ -165,28 +142,21 @@ const App = () => {
     }
   
     let newSelectedAnswer = [...selectedAnswer];
-    console.log("newSelectedAnswer" , newSelectedAnswer)
     if (!flag) {
       if (newSelectedAnswer[0] === "Satisfied") {
-        // videoRef.current.currentTime = 23.9; // Start from 00:26
-        console.log("newSelected ans" , newSelectedAnswer[0] )
-        setSatisfied(newSelectedAnswer[0])
-        console.log(satisfied)
+        videoRef.current.currentTime = 23.9; // Start from 00:26
         setTimeout(() => handlePlay(), 100)
-        // videoRef.current.addEventListener("timeupdate", function handler() {
-        //   if (videoRef.current.currentTime >= 52) {
-        //     console.log("videoRef.current.currentTime" , videoRef.current.currentTime)
-        //     videoRef.current.currentTime = 89.4;
-        //     videoRef.current.removeEventListener("timeupdate", handler);
-        //   }
-        //   setFlag(true);
-        // });
-        setFlag(true)
-        console.log("Ho gya sb")
+        videoRef.current.addEventListener("timeupdate", function handler() {
+          if (videoRef.current.currentTime >= 52) {
+            videoRef.current.currentTime = 89.4;
+            videoRef.current.removeEventListener("timeupdate", handler);
+          }
+          setFlag(true);
+      
+        });
         videoRef.current.play();
       } else if (newSelectedAnswer[0] === "Dissatisfied") {
-        // videoRef.current.currentTime = 54; // Start from 01:05
-        setSatisfied(newSelectedAnswer[0])
+        videoRef.current.currentTime = 54; // Start from 01:05
         setFlag(true);
         handlePlay()
         setTimeout(() => handlePlay(), 100); // Delay handlePlay() by 100 milliseconds
@@ -224,7 +194,7 @@ const App = () => {
         
         // Example object to post
         const myObject = {
-          userId: "15",
+          userId: id,
           data: answeredQuestions,
         };
         postData(myObject);
@@ -294,8 +264,7 @@ const App = () => {
   }, [skip]);
   return (
     <div className="App">
-
-      <div style={isDisplay ? {} : { display: "none" } }>
+      <div style={isDisplay ? {} : { display: "none" }}>
         <div data-vjs-player>
           <video
             ref={videoRef}
@@ -333,7 +302,7 @@ const App = () => {
                     checked={selectedAnswer.includes(answer)}
                     onChange={() => handleAnswerSelection(answer)}
                   />
-                 {"   "} {answer}
+                  {answer}
                 </label>
               ) : (
                 <label>
@@ -343,7 +312,7 @@ const App = () => {
                     onChange={() => handleAnswerSelection(answer)}
                     name="answer"
                   />
-                 {"   "} {answer}
+                  {answer}
                 </label>
               )}
               <br />
